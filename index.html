@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for fitri — still you.</title>
 <meta name="description" content="for fitri — some stories are meant to be remembered.">
-<meta name="theme-color" content="#1e0a1c">
+<meta name="theme-color" content="#2a1028">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -39,9 +39,21 @@
 
 <nav id="nav">
   <span class="nav-logo">fitri — agis</span>
-  <button id="music-btn" aria-label="toggle music">
-    <img class="music-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/38/9b/15389bf4-8074-06c3-11ee-655b5453af68/100x100bb.jpg" alt="">
-    <span>begin again — taylor swift</span>
+  <button id="music-btn" class="music-player" aria-label="toggle music">
+    <span class="vinyl-wrap">
+      <img class="music-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/38/9b/15389bf4-8074-06c3-11ee-655b5453af68/100x100bb.jpg" alt="Red Taylor's Version">
+      <span class="vinyl-hole"></span>
+      <span class="vinyl-note">♪</span>
+    </span>
+    <span class="music-info">
+      <span class="music-title">Begin Again</span>
+      <span class="music-artist">Taylor Swift • Red (Taylor's Version)</span>
+    </span>
+    <span class="music-ctrl">
+      <svg class="icon-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5.14v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </span>
+    <span class="music-eq" aria-hidden="true"><i></i><i></i><i></i></span>
   </button>
 </nav>
 

@@ -61,16 +61,51 @@ body::after{
   pointer-events:none;
 }
 .nav-logo{font-family:"Cormorant Garamond",serif;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:rgba(255,255,255,.75)}
-#music-btn{
+#music-btn.music-player{
   pointer-events:auto;
-  display:flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);
-  color:#fff;border-radius:999px;padding:8px 14px;font-size:.78rem;
-  backdrop-filter:blur(12px);cursor:pointer;transition:.3s;
+  display:flex;align-items:center;gap:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,240,246,.10));
+  border:1px solid rgba(255,214,231,.22);
+  color:#fff;border-radius:999px;
+  padding:7px 16px 7px 8px;
+  backdrop-filter:blur(16px) saturate(1.2);
+  cursor:pointer;transition:.3s;
+  box-shadow:0 8px 24px rgba(0,0,0,.22), 0 0 18px rgba(255,107,157,.12), 0 0 0 1px rgba(255,214,231,.10) inset;
+  min-width:0;
 }
-#music-btn:hover{background:rgba(255,255,255,.18)}
-#music-btn .music-art{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.3)}
-#music-btn span{opacity:.85}
+#music-btn.music-player:hover{background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,240,246,.14)); transform:translateY(-1px); box-shadow:0 12px 32px rgba(0,0,0,.26), 0 0 22px rgba(255,107,157,.16)}
+.vinyl-wrap{ position:relative; width:42px; height:42px; flex-shrink:0; border-radius:50%; overflow:hidden; background:#111; box-shadow:0 2px 10px rgba(0,0,0,.35), 0 0 0 2px rgba(255,255,255,.12) inset; display:grid; place-items:center }
+.music-art{ width:42px; height:42px; border-radius:50%; object-fit:cover; display:block; border:none }
+.vinyl-hole{ position:absolute; width:10px; height:10px; background:#1a0a14; border:2px solid rgba(255,255,255,.9); border-radius:50%; box-shadow:0 0 6px rgba(0,0,0,.4) inset }
+.vinyl-note{ position:absolute; right:-4px; top:-4px; width:18px; height:18px; display:grid; place-items:center; background:linear-gradient(135deg, #ff6b9d, #f0abfc); color:#fff; font-size:10px; border-radius:50%; box-shadow:0 2px 8px rgba(255,107,157,.5); border:1px solid rgba(255,255,255,.4) }
+#music-btn.playing .vinyl-wrap{ animation:vinylSpin 3.2s linear infinite }
+#music-btn.playing .music-art{ filter:saturate(1.15) }
+@keyframes vinylSpin{ to{ transform:rotate(360deg) } }
+.music-info{ display:flex; flex-direction:column; align-items:flex-start; line-height:1.1; min-width:0; text-align:left }
+.music-title{ font-size:.82rem; font-weight:600; letter-spacing:.04em; white-space:nowrap; color:#fff }
+.music-artist{ font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; opacity:.72; white-space:nowrap; color:rgba(255,255,255,.9) }
+.music-ctrl{ width:30px; height:30px; display:grid; place-items:center; background:rgba(255,255,255,.95); color:#4a1438; border-radius:50%; flex-shrink:0; box-shadow:0 2px 10px rgba(0,0,0,.18) }
+.music-ctrl .icon-pause{ display:none }
+#music-btn.playing .icon-play{ display:none }
+#music-btn.playing .icon-pause{ display:block }
+.music-eq{ display:flex; gap:2px; align-items:end; height:14px; opacity:0; transition:.3s; margin-left:2px }
+.music-eq i{ width:3px; background:linear-gradient(180deg, #ff6b9d, #f0abfc); border-radius:999px; display:block }
+.music-eq i:nth-child(1){ height:6px; animation:eq 0.6s ease-in-out infinite }
+.music-eq i:nth-child(2){ height:10px; animation:eq 0.52s ease-in-out infinite .12s }
+.music-eq i:nth-child(3){ height:7px; animation:eq 0.68s ease-in-out infinite .22s }
+@keyframes eq{ 0%,100%{ transform:scaleY(.7) } 50%{ transform:scaleY(1.25) } }
+#music-btn.playing .music-eq{ opacity:1 }
+@media(max-width:640px){
+  #music-btn.music-player{ padding:6px 12px 6px 6px; gap:9px }
+  .vinyl-wrap{ width:36px; height:36px }
+  .music-art{ width:36px; height:36px }
+  .music-title{ font-size:.76rem }
+  .music-artist{ font-size:.56rem }
+  .music-ctrl{ width:26px; height:26px }
+}
+@media(max-width:400px){
+  .music-artist{ display:none }
+}
 
 /* cursor */
 #cursor-glow{
@@ -412,8 +447,5 @@ body::after{
 #surprise.revealed .reveal-actions{ animation:revealUp .7s .75s both }
 @keyframes revealUp{ from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
 
-/* music button when YT playing */
-#music-btn.playing{ background:rgba(255,107,157,.20)!important; border-color:rgba(255,107,157,.32)!important }
-#music-btn.playing .music-art{ box-shadow:0 0 0 2px rgba(255,107,157,.35); animation:spinArt 6s linear infinite }
-@keyframes spinArt{ to{transform:rotate(360deg)} }
+/* music playing handled above */
 

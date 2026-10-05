@@ -108,7 +108,7 @@ function heartShape(scale=1){
   canvas.height = canvas.offsetHeight * devicePixelRatio;
   const {renderer} = makeRenderer(canvas, true);
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0x0a0610, 14, 26);
+  scene.fog = new THREE.Fog(0x1a0a14, 14, 26);
 
   const camera = new THREE.PerspectiveCamera(42, canvas.clientWidth/canvas.clientHeight, 0.1, 100);
   camera.position.set(0, 0.6, 9);
@@ -121,9 +121,9 @@ function heartShape(scale=1){
   // lights
   scene.add(new THREE.AmbientLight(0xfff0f6, 0.55));
   const dl = new THREE.DirectionalLight(0xffffff, 1.15); dl.position.set(3,4,6); scene.add(dl);
-  const pl1 = new THREE.PointLight(0xff4d7a, 2.2, 20); pl1.position.set(2,1.2,3); scene.add(pl1);
-  const pl2 = new THREE.PointLight(0x8b5cf6, 1.6, 18); pl2.position.set(-2.5,-0.5,2.5); scene.add(pl2);
-  const pl3 = new THREE.PointLight(0xff8c42, 1.1, 16); pl3.position.set(0,2.5,2); scene.add(pl3);
+  const pl1 = new THREE.PointLight(0xff6b9d, 2.6, 20); pl1.position.set(2,1.2,3); scene.add(pl1);
+  const pl2 = new THREE.PointLight(0xf0abfc, 1.8, 18); pl2.position.set(-2.5,-0.5,2.5); scene.add(pl2);
+  const pl3 = new THREE.PointLight(0xffb3d1, 1.4, 16); pl3.position.set(0,2.5,2); scene.add(pl3);
 
   // heart mesh (extruded + soft)
   const shape = heartShape(1);
@@ -499,40 +499,59 @@ $("#restart-btn").addEventListener("click", ()=>{
   gsap.to(window, {duration:1.1, scrollTo:0, ease:"power3.inOut"});
 });
 
-// ----- tiny ambience toggle (no file needed — uses WebAudio) -----
-let audioCtx, osc, gain, playing=false;
-$("#music-btn").addEventListener("click", async ()=>{
-  const btn = $("#music-btn");
-  try{
-    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    if(!playing){
-      await audioCtx.resume();
-      gain = audioCtx.createGain(); gain.gain.value=0; gain.connect(audioCtx.destination);
-      osc = audioCtx.createOscillator(); osc.type="sine"; osc.frequency.value=110;
-      const o2 = audioCtx.createOscillator(); o2.type="triangle"; o2.frequency.value=220;
-      const g2 = audioCtx.createGain(); g2.gain.value=0;
-      osc.connect(gain); o2.connect(g2); g2.connect(audioCtx.destination);
-      osc.start(); o2.start();
-      gain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime+1.2);
-      g2.gain.linearRampToValueAtTime(0.008, audioCtx.currentTime+1.2);
-      // store refs
-      $("#music-btn")._o2=o2; $("#music-btn")._g2=g2;
-      playing=true; btn.innerHTML="♪ <span>sound on</span>";
-    } else {
-      gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.6);
-      const g2=$("#music-btn")._g2; if(g2) g2.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.6);
-      setTimeout(()=>{ try{osc.stop(); $("#music-btn")._o2.stop();}catch{} },700);
-      playing=false; btn.innerHTML="♪ <span>sound off</span>";
+// ----- music: Begin Again - Taylor Swift -----
+const bgAudio = document.getElementById("bg-audio");
+let audioPlaying = false;
+const musicBtn = document.getElementById("music-btn");
+function setMusicUI(on){
+  if(!musicBtn) return;
+  const span = musicBtn.querySelector("span");
+  if(span) span.textContent = on ? "playing — begin again ♡" : "begin again — taylor swift";
+  musicBtn.style.background = on ? "rgba(255,107,157,.22)" : "";
+  musicBtn.style.borderColor = on ? "rgba(255,107,157,.32)" : "";
+}
+if(bgAudio && musicBtn){
+  bgAudio.volume = 0.72;
+  musicBtn.addEventListener("click", async ()=>{
+    try{
+      if(!audioPlaying){
+        await bgAudio.play();
+        audioPlaying = true;
+        setMusicUI(true);
+      } else {
+        bgAudio.pause();
+        audioPlaying = false;
+        setMusicUI(false);
+      }
+    }catch(e){
+      // autoplay blocked - show hint
+      musicBtn.querySelector("span").textContent = "tap again to play ♡";
+      console.warn("audio play failed", e);
     }
-  }catch(e){ btn.innerHTML="♪ <span>unavailable</span>"; }
-});
+  });
+  bgAudio.addEventListener("ended", ()=>{ audioPlaying=false; setMusicUI(false); });
+  bgAudio.addEventListener("pause", ()=>{ if(bgAudio.currentTime>0.1 && !bgAudio.ended) { /* user paused */ }});
+  // try gentle autoplay after loader (may be blocked until interaction)
+  bgAudio.addEventListener("canplay", ()=>{
+    // don't autoplay aggressively - wait for user tap per browser policy
+  });
+  // also allow first interaction anywhere to start music
+  let firstTap = false;
+  document.addEventListener("click", ()=>{
+    if(firstTap) return;
+    firstTap = true;
+    if(!audioPlaying && bgAudio.paused){
+      bgAudio.play().then(()=>{ audioPlaying=true; setMusicUI(true); }).catch(()=>{});
+    }
+  }, {once:true});
+}
 
 // ----- console easter -----
 console.log("%cfor fitri ♥", "font-size:22px;color:#ff4d7a;font-weight:700", "\n— built by Agis");
 
 // ----- cute sticker burst on click -----
 (() => {
-  const stickers = ["🧸","🎀","✨","🌸","💌","🫶","🍓","🐰","🥺","💘","🌙","☁️","🐾","♥"];
+  const stickers = ["🧸","🎀","✨","🌸","🫶","♥"];
   const layer = document.getElementById("sticker-burst");
   if(!layer) return;
   const burst = (x,y) => {
@@ -575,5 +594,5 @@ console.log("%cfor fitri ♥", "font-size:22px;color:#ff4d7a;font-weight:700", "
     if(r.bottom<0 || r.top>innerHeight) return;
     burst(r.left + r.width*(0.2+Math.random()*0.6), r.top + r.height*(0.3+Math.random()*0.4));
     if(++t>6) t=0;
-  }, 2400);
+  }, 4200);
 })();

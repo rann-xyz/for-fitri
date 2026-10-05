@@ -528,4 +528,4 @@ $("#music-btn").addEventListener("click", async ()=>{
 });
 
 // ----- console easter -----
-console.log("%cfor fitri ♥", "font-size:22px;color:#ff4d7a;font-weight:700", "\n— built by Rann");
+console.log("%cfor fitri ♥", "font-size:22px;color:#ff4d7a;font-weight:700", "\n— built by Agis");

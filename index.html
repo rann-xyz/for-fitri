@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Fitri</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Three.js + GSAP from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ExpressiveEPSA.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-heart"></div>
+            <div class="loading-particles"></div>
+            <p class="loading-text">something special is waiting for you...</p>
+        </div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+        <span class="progress-text">0%</span>
+    </div>
+
+    <!-- Music Toggle -->
+    <div class="music-toggle">
+        <span id="music-icon">🎵</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">for fitri</h1>
+            <p class="hero-subtitle">some stories are meant to be remembered.</p>
+            <button class="cta-button" id="cta-button">enter our story →</button>
+        </div>
+        <div id="threejs-container"></div>
+    </section>
+
+    <!-- Video Background Section -->
+    <section class="video-section" id="video-section">
+        <div class="video-overlay"></div>
+        <div class="video-content">
+            <h2 class="video-title">a moment frozen in time</h2>
+        </div>
+        <video autoplay muted loop playsinline id="hero-video">
+            <source src="assets/placeholder-video.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="story-section" id="story-section">
+        <div class="section-header">
+            <h2 class="section-title">our story</h2>
+            <p class="section-subtitle">a journey worth remembering</p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-card" data-timeline="1">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <h3>the beginning</h3>
+                    <p>Your story started with a single moment, a spark that ignited everything.</p>
+                </div>
+            </div>
+            <div class="timeline-card" data-timeline="2">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <h3>the first conversation</h3>
+                    <p>Laughter, curiosity, and the magic of meeting someone special.</p>
+                </div>
+            </div>
+            <div class="timeline-card" data-timeline="3">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <h3>the little moments</h3>
+                    <p>Everyday simplicity transformed into extraordinary memories.</p>
+                </div>
+            </div>
+            <div class="timeline-card" data-timeline="4">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <h3>today</h3>
+                    <p>Every moment with you feels like coming home.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Gallery Section -->
+    <section class="memory-section" id="memory-section">
+        <div class="section-header">
+            <h2 class="section-title">memories</h2>
+            <p class="section-subtitle">moments that define us</p>
+        </div>
+        <div class="memory-grid">
+            <div class="memory-card" data-memory="1">
+                <div class="card-glow"></div>
+                <img src="assets/memory1.jpg" alt="Memory 1">
+                <div class="memory-overlay">
+                    <p>Our first adventure together</p>
+                </div>
+            </div>
+            <div class="memory-card" data-memory="2">
+                <div class="card-glow"></div>
+                <img src="assets/memory2.jpg" alt="Memory 2">
+                <div class="memory-overlay">
+                    <p>Laughter under the stars</p>
+                </div>
+            </div>
+            <div class="memory-card" data-memory="3">
+                <div class="card-glow"></div>
+                <img src="assets/memory3.jpg" alt="Memory 3">
+                <div class="memory-overlay">
+                    <p>Sunrise dreams</p>
+                </div>
+            </div>
+            <div class="memory-card" data-memory="4">
+                <div class="card-glow"></div>
+                <img src="assets/memory4.jpg" alt="Memory 4">
+                <div class="memory-overlay">
+                    <p>Cozy moments</p>
+                </div>
+            </div>
+            <div class="memory-card" data-memory="5">
+                <div class="card-glow"></div>
+                <img src="assets/memory5.jpg" alt="Memory 5">
+                <div class="memory-overlay">
+                    <p>Quiet conversations</p>
+                </div>
+            </div>
+            <div class="memory-card" data-memory="6">
+                <div class="card-glow"></div>
+                <img src="assets/memory6.jpg" alt="Memory 6">
+                <div class="memory-overlay">
+                    <p>Tomorrow awaits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section class="letter-section" id="letter-section">
+        <div class="section-header">
+            <h2 class="section-title">love letter</h2>
+            <p class="section-subtitle">words I've never said aloud</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" id="open-envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
+            </div>
+        </div>
+        <div class="letter-overlay" id="letter-overlay">
+            <div class="letter-content" id="letter-content">
+            </div>
+        </div>
+    </section>
+
+    <!-- Why You Section -->
+    <section class="why-section" id="why-section">
+        <div class="section-header">
+            <h2 class="section-title">why you</h2>
+            <p class="section-subtitle">the simple reasons that make everything complex</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card" data-reason="1">
+                <div class="card-glow"></div>
+                <div class="card-icon">😊</div>
+                <h3>your smile</h3>
+            </div>
+            <div class="why-card" data-reason="2">
+                <div class="card-glow"></div>
+                <div class="card-icon">💫</div>
+                <h3>your personality</h3>
+            </div>
+            <div class="why-card" data-reason="3">
+                <div class="card-glow"></div>
+                <div class="card-icon">⭐</div>
+                <h3>the way you make ordinary moments special</h3>
+            </div>
+            <div class="why-card" data-reason="4">
+                <div class="card-glow"></div>
+                <div class="card-icon">❤️</div>
+                <h3>simply because you're you</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Surprise Section -->
+    <section class="surprise-section" id="surprise-section">
+        <div class="surprise-content">
+            <h2 class="surprise-title">wait...</h2>
+            <button class="surprise-button" id="open-surprise">open the surprise</button>
+        </div>
+        <div id="surprise-explosion"></div>
+    </section>
+
+    <!-- Final Screen -->
+    <section class="final-section" id="final-section">
+        <div class="final-overlay"></div>
+        <div class="final-content">
+            <h1 class="final-title">still you.</h1>
+            <p class="final-subtitle">out of everyone in this world, I'd still choose you.</p>
+            <button class="restart-button" id="restart-button">restart experience</button>
+        </div>
+        <div id="final-hearts"></div>
+    </section>
+
+    <!-- 3D Heart Container -->
+    <div id="heart-container" class="hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

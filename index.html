@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a0610">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500&family=Patrick+Hand&display=swap" rel="stylesheet">
 <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
 <script type="importmap">
 {
@@ -44,6 +44,9 @@
       <div class="loader-heart">♥</div>
       <div class="loader-ring"></div>
       <div class="loader-ring2"></div>
+      <span class="loader-sticker ls1">🧸</span>
+      <span class="loader-sticker ls2">✨</span>
+      <span class="loader-sticker ls3">🎀</span>
     </div>
     <p class="loader-text">something special is waiting for you...</p>
     <div class="loader-line"><div class="loader-line-fill"></div></div>
@@ -58,22 +61,54 @@
   <div class="hero-vignette"></div>
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div id="hero-hearts" aria-hidden="true"></div>
+
+  <!-- cute floating stickers around hero -->
+  <div class="hero-stickers" aria-hidden="true">
+    <span class="sticker hs1" style="--r:-8deg">🧸</span>
+    <span class="sticker hs2" style="--r:7deg">🎀</span>
+    <span class="sticker hs3" style="--r:-5deg">🌸</span>
+    <span class="sticker hs4" style="--r:9deg">✨</span>
+    <span class="sticker hs5" style="--r:-6deg">💌</span>
+    <span class="sticker hs6" style="--r:5deg">🍓</span>
+  </div>
+  <div class="doodle-arc" aria-hidden="true">♡  ♡  ♡</div>
+
   <div class="hero-content">
-    <p class="eyebrow">a love letter in motion —</p>
+    <p class="eyebrow">a love letter in motion — <span class="mini-sticker">🥺</span></p>
     <h1 class="hero-title">
       <span class="line"><i>for</i> fitri</span>
     </h1>
     <p class="hero-sub">some stories are meant<br>to be remembered.</p>
+    <div class="hero-badges">
+      <span class="badge">✦ made with love</span>
+      <span class="badge">♡ by agis</span>
+      <span class="badge">🎀 just for you</span>
+    </div>
     <button id="enter-btn" class="cta">enter our story <span>→</span></button>
-    <p class="hero-hint">scroll gently — take your time</p>
+    <p class="hero-hint">scroll gently — take your time <span>🐾</span></p>
   </div>
   <div class="hero-scroll-indicator"><span></span></div>
 </section>
 
+<!-- CUTE TICKER -->
+<div class="cute-ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>you're cute</span><i>🧸</i>
+    <span>you're my favorite</span><i>💌</i>
+    <span>it's always you</span><i>✨</i>
+    <span>my little star</span><i>🌸</i>
+    <span>peluk dulu?</span><i>🫶</i>
+    <span>kamu gemoy</span><i>🐰</i>
+    <span>you're cute</span><i>🧸</i>
+    <span>you're my favorite</span><i>💌</i>
+    <span>it's always you</span><i>✨</i>
+    <span>my little star</span><i>🌸</i>
+  </div>
+</div>
+
 <!-- VIDEO -->
 <section id="video-sec">
   <div class="video-wrap">
-    <!-- Replace src with your own video. Keep muted autoplay loop playsinline for GitHub Pages -->
     <video id="bg-video" autoplay muted loop playsinline poster="">
       <source src="https://cdn.coverr.co/videos/coverr-sunset-over-the-sea-1578612799086?download=1" type="video/mp4">
     </video>
@@ -81,16 +116,21 @@
     <div class="video-overlay2"></div>
   </div>
   <div class="video-content">
-    <p class="eyebrow light">chapter i — presence</p>
+    <p class="eyebrow light">chapter i — presence <span class="mini-sticker">☁️</span></p>
     <h2>a moment<br><i>frozen in time</i></h2>
     <p class="video-cap">replace the video URL in <code>index.html</code> → search for <code>bg-video</code> — any mp4 works. overlay keeps text readable.</p>
+    <div class="sticker-row" aria-hidden="true">
+      <span class="sticker tiny" style="--r:-6deg">📸</span>
+      <span class="sticker tiny" style="--r:5deg">🌙</span>
+      <span class="sticker tiny" style="--r:-4deg">✨</span>
+    </div>
   </div>
 </section>
 
 <!-- OUR STORY -->
 <section id="story" class="pad">
   <div class="section-head">
-    <p class="eyebrow">our story</p>
+    <p class="eyebrow">our story <span class="mini-sticker">🐾</span></p>
     <h2>how we <i>got here</i></h2>
     <p class="section-sub">not grand gestures — just little pieces that kept fitting.</p>
   </div>
@@ -98,31 +138,39 @@
     <div class="tl-line" aria-hidden="true"><span></span></div>
 
     <article class="tl-card" data-y="30">
+      <span class="card-sticker">🧸</span>
       <span class="tl-num">01</span>
       <h3>the beginning</h3>
       <p>one notification. one reply that stayed a little longer than it should have.</p>
       <span class="tl-meta">— where it all quietly started</span>
+      <span class="doodle">♡</span>
     </article>
 
     <article class="tl-card" data-y="30">
+      <span class="card-sticker" style="--r:6deg">💌</span>
       <span class="tl-num">02</span>
       <h3>the first conversation</h3>
       <p>laughing at nothing, talking about everything — like we'd known the rhythm before.</p>
       <span class="tl-meta">— and time forgot to move</span>
+      <span class="doodle">✦</span>
     </article>
 
     <article class="tl-card" data-y="30">
+      <span class="card-sticker" style="--r:-5deg">🍓</span>
       <span class="tl-num">03</span>
       <h3>the little moments</h3>
       <p>ordinary days that felt different just because you were in them.</p>
       <span class="tl-meta">— coffee, late chats, soft silences</span>
+      <span class="doodle">☁️</span>
     </article>
 
     <article class="tl-card" data-y="30">
+      <span class="card-sticker" style="--r:7deg">🫶</span>
       <span class="tl-num">04</span>
       <h3>today</h3>
       <p>still choosing you. still finding new reasons to.</p>
       <span class="tl-meta">— and tomorrow, again</span>
+      <span class="doodle">♥</span>
     </article>
   </div>
 </section>
@@ -130,47 +178,59 @@
 <!-- MEMORIES -->
 <section id="memories" class="pad dark">
   <div class="section-head">
-    <p class="eyebrow">memories</p>
+    <p class="eyebrow">memories <span class="mini-sticker">🎀</span></p>
     <h2>pieces i <i>keep</i></h2>
     <p class="section-sub">replace images in <code>assets/</code> or swap the unsplash URLs in <code>index.html</code>.</p>
   </div>
   <div class="mem-grid">
     <figure class="mem" data-tilt>
+      <span class="tape t1"></span><span class="mem-sticker">🐰</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80&auto=format" alt="memory 1" onerror="this.style.display='none'">
       <figcaption><span>first adventure</span><small>that day felt lighter</small></figcaption>
     </figure>
     <figure class="mem" data-tilt>
+      <span class="tape t2"></span><span class="mem-sticker" style="--r:5deg">🌸</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=800&q=80&auto=format" alt="memory 2" onerror="this.style.display='none'">
       <figcaption><span>laughter under stars</span><small>you, without trying</small></figcaption>
     </figure>
     <figure class="mem tall" data-tilt>
+      <span class="tape t1"></span><span class="mem-sticker" style="--r:-6deg">🧸</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80&auto=format" alt="memory 3" onerror="this.style.display='none'">
       <figcaption><span>sunrise</span><small>soft light, softer you</small></figcaption>
     </figure>
     <figure class="mem" data-tilt>
+      <span class="tape t2"></span><span class="mem-sticker">✨</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80&auto=format" alt="memory 4" onerror="this.style.display='none'">
       <figcaption><span>quiet conversations</span><small>hours felt like minutes</small></figcaption>
     </figure>
     <figure class="mem" data-tilt>
+      <span class="tape t1"></span><span class="mem-sticker" style="--r:7deg">💌</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=800&q=80&auto=format" alt="memory 5" onerror="this.style.display='none'">
       <figcaption><span>cozy moments</span><small>home was a feeling</small></figcaption>
     </figure>
     <figure class="mem wide" data-tilt>
+      <span class="tape t2"></span><span class="mem-sticker" style="--r:-5deg">🫶</span>
       <img loading="lazy" src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1200&q=80&auto=format" alt="memory 6" onerror="this.style.display='none'">
       <figcaption><span>tomorrow awaits</span><small>still writing it</small></figcaption>
     </figure>
   </div>
+  <p class="mem-foot">psst — hover the photos, they wiggle! <span>🐾</span></p>
 </section>
 
 <!-- LETTER -->
 <section id="letter" class="pad">
   <div class="section-head">
-    <p class="eyebrow">a letter</p>
+    <p class="eyebrow">a letter <span class="mini-sticker">💌</span></p>
     <h2>words i <i>never said</i> aloud</h2>
-    <p class="section-sub">tap the envelope —</p>
+    <p class="section-sub">tap the envelope — <span class="hand">👆</span></p>
   </div>
 
   <div id="envelope-wrap">
+    <div class="envelope-stickers" aria-hidden="true">
+      <span class="sticker es1" style="--r:-7deg">🌸</span>
+      <span class="sticker es2" style="--r:8deg">✨</span>
+      <span class="sticker es3" style="--r:-4deg">🎀</span>
+    </div>
     <button id="envelope" aria-label="open love letter">
       <div class="env-shadow"></div>
       <div class="env-body">
@@ -179,7 +239,7 @@
         <div class="env-letter-peek"></div>
         <span class="env-seal">♥</span>
       </div>
-      <span class="env-hint">open</span>
+      <span class="env-hint">open me! 🫶</span>
     </button>
   </div>
 
@@ -187,9 +247,11 @@
     <div class="letter-backdrop"></div>
     <div class="letter-paper">
       <button id="letter-close" aria-label="close">×</button>
+      <span class="paper-sticker ps1">🧸</span><span class="paper-sticker ps2">✨</span>
       <p class="letter-head">Dear Fitri,</p>
       <div id="typed-letter"></div>
       <p class="letter-sign">— Agis <span>❤️</span></p>
+      <p class="letter-ps">p.s. you're my favorite notification 🥺🎀</p>
     </div>
   </div>
 </section>
@@ -197,14 +259,17 @@
 <!-- WHY YOU -->
 <section id="why" class="pad dark">
   <div class="section-head">
-    <p class="eyebrow">why you</p>
+    <p class="eyebrow">why you <span class="mini-sticker">🐰</span></p>
     <h2>simple reasons, <i>endless</i> meaning</h2>
   </div>
   <div class="why-grid">
-    <div class="why-card" data-tilt><span class="why-icon">☺</span><h3>your smile</h3><p>the kind that makes a room feel warmer without trying.</p></div>
-    <div class="why-card" data-tilt><span class="why-icon">✦</span><h3>your personality</h3><p>soft, honest, a little stubborn — exactly the way i like it.</p></div>
-    <div class="why-card" data-tilt><span class="why-icon">◐</span><h3>how you make ordinary<br>moments special</h3><p>you turn waiting, walking, nothing — into something.</p></div>
-    <div class="why-card" data-tilt><span class="why-icon">♥</span><h3>simply because<br>you're you</h3><p>no reason needed. just you — and that's enough.</p></div>
+    <div class="why-card" data-tilt><span class="why-sticker">🥺</span><span class="why-icon">☺</span><h3>your smile</h3><p>the kind that makes a room feel warmer without trying.</p><span class="why-doodle">✦</span></div>
+    <div class="why-card" data-tilt><span class="why-sticker" style="--r:6deg">🌸</span><span class="why-icon">✦</span><h3>your personality</h3><p>soft, honest, a little stubborn — exactly the way i like it.</p><span class="why-doodle">♡</span></div>
+    <div class="why-card" data-tilt><span class="why-sticker" style="--r:-5deg">🍓</span><span class="why-icon">◐</span><h3>how you make ordinary<br>moments special</h3><p>you turn waiting, walking, nothing — into something.</p><span class="why-doodle">☁️</span></div>
+    <div class="why-card" data-tilt><span class="why-sticker" style="--r:7deg">🧸</span><span class="why-icon">♥</span><h3>simply because<br>you're you</h3><p>no reason needed. just you — and that's enough.</p><span class="why-doodle">🎀</span></div>
+  </div>
+  <div class="why-foot-stickers" aria-hidden="true">
+    <span>🫶</span><span>✨</span><span>💌</span><span>🌙</span><span>🐾</span>
   </div>
 </section>
 
@@ -212,13 +277,18 @@
 <section id="surprise">
   <canvas id="surprise-canvas" aria-hidden="true"></canvas>
   <div class="surprise-inner">
-    <p class="eyebrow">one more thing —</p>
+    <p class="eyebrow">one more thing — <span class="mini-sticker">👀</span></p>
     <h2 class="surprise-wait">wait...</h2>
+    <div class="surprise-stickers" aria-hidden="true">
+      <span class="sticker ss1" style="--r:-7deg">🤫</span><span class="sticker ss2" style="--r:6deg">🎁</span>
+    </div>
     <button id="surprise-btn" class="cta ghost">open the surprise</button>
     <div id="surprise-reveal" aria-hidden="true">
       <p class="reveal-line">it's always been you,</p>
       <p class="reveal-name">fitri. <span>♥</span></p>
       <p class="reveal-sub">in every version of tomorrow i imagine — you're there.</p>
+      <p class="reveal-cute">kamu gemoy banget sih 🥺🎀</p>
+      <div class="reveal-stickers" aria-hidden="true"><span>🧸</span><span>✨</span><span>🫶</span><span>🌸</span><span>💌</span></div>
     </div>
   </div>
 </section>
@@ -227,15 +297,25 @@
 <section id="final">
   <canvas id="final-canvas" aria-hidden="true"></canvas>
   <div class="final-bg"></div>
+  <div class="final-stickers" aria-hidden="true">
+    <span class="sticker fs1" style="--r:-8deg">🧸</span>
+    <span class="sticker fs2" style="--r:6deg">🎀</span>
+    <span class="sticker fs3" style="--r:-4deg">✨</span>
+    <span class="sticker fs4" style="--r:7deg">🌸</span>
+  </div>
   <div class="final-content">
     <h2 class="final-title">still <i>you.</i></h2>
     <p class="final-sub">out of everyone in this world,<br>I'd still choose you.</p>
+    <p class="final-cute">my favorite human 🫶</p>
     <button id="restart-btn" class="cta">restart experience <span>↺</span></button>
-    <p class="final-foot">made with love — by Agis</p>
+    <p class="final-foot">made with love — by Agis <span>🧸</span></p>
   </div>
 </section>
 
-<footer id="foot">© for fitri — <span id="year"></span> · built for GitHub Pages</footer>
+<!-- global cute click layer -->
+<div id="sticker-burst" aria-hidden="true"></div>
+
+<footer id="foot">© for fitri — <span id="year"></span> · built for GitHub Pages <span>🎀</span></footer>
 
 <script type="module" src="script.js"></script>
 </body>

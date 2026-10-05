@@ -529,3 +529,51 @@ $("#music-btn").addEventListener("click", async ()=>{
 
 // ----- console easter -----
 console.log("%cfor fitri ♥", "font-size:22px;color:#ff4d7a;font-weight:700", "\n— built by Agis");
+
+// ----- cute sticker burst on click -----
+(() => {
+  const stickers = ["🧸","🎀","✨","🌸","💌","🫶","🍓","🐰","🥺","💘","🌙","☁️","🐾","♥"];
+  const layer = document.getElementById("sticker-burst");
+  if(!layer) return;
+  const burst = (x,y) => {
+    const count = 3 + Math.floor(Math.random()*3);
+    for(let i=0;i<count;i++){
+      const el = document.createElement("span");
+      el.className = "burst-sticker";
+      el.textContent = stickers[Math.floor(Math.random()*stickers.length)];
+      const ang = (Math.random()-0.5)*34;
+      el.style.left = x+"px";
+      el.style.top = y+"px";
+      el.style.setProperty("--r", ang+"deg");
+      el.style.transform = `translate(-50%,-50%) rotate(${ang}deg)`;
+      layer.appendChild(el);
+      setTimeout(()=> el.remove(), 950);
+    }
+  };
+  // click anywhere cute sections
+  ["hero","story","memories","letter","why","surprise","final"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener("click", e=>{
+      // ignore button clicks
+      if(e.target.closest("button, a")) return;
+      burst(e.clientX, e.clientY);
+    });
+  });
+  // also click on stickers themselves pops
+  document.addEventListener("click", e=>{
+    if(e.target.classList.contains("sticker") || e.target.classList.contains("burst-sticker") || e.target.closest(".sticker")){
+      burst(e.clientX, e.clientY);
+    }
+  });
+  // occasional auto sprinkle on hero
+  let t=0;
+  setInterval(()=>{
+    if(document.hidden) return;
+    const hero=document.getElementById("hero");
+    if(!hero) return;
+    const r=hero.getBoundingClientRect();
+    if(r.bottom<0 || r.top>innerHeight) return;
+    burst(r.left + r.width*(0.2+Math.random()*0.6), r.top + r.height*(0.3+Math.random()*0.4));
+    if(++t>6) t=0;
+  }, 2400);
+})();

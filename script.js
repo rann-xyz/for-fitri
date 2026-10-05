@@ -372,18 +372,62 @@ function surpriseHeartsExplosion(){
   }
 }
 
+function doConfetti(){
+  const c = document.getElementById("confetti-canvas");
+  if(!c) return;
+  const ctx = c.getContext("2d");
+  const dpr = Math.min(devicePixelRatio,2);
+  function rs(){ c.width=c.clientWidth*dpr; c.height=c.clientHeight*dpr; }
+  rs();
+  const colors = ["#ff6b9d","#ffb3d1","#f0abfc","#ffd6e7","#ffffff","#ff8fab"];
+  const parts = Array.from({length: 120}, ()=>({
+    x: Math.random()*c.width, y: -20*dpr - Math.random()*200*dpr,
+    vx:(Math.random()-0.5)*6*dpr, vy: 2+Math.random()*7*dpr,
+    r: 3+Math.random()*5, rot: Math.random()*Math.PI*2, vr:(Math.random()-0.5)*0.3,
+    color: colors[Math.floor(Math.random()*colors.length)],
+    shape: Math.random()>.5 ? "rect" : "circle"
+  }));
+  let t=0;
+  (function loop(){
+    t+=0.016;
+    ctx.clearRect(0,0,c.width,c.height);
+    let alive=false;
+    for(const p of parts){
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.14*dpr; p.rot+=p.vr; p.vx*=0.998;
+      if(p.y < c.height+40*dpr){ alive=true;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.fillStyle=p.color; ctx.globalAlpha=0.92;
+        if(p.shape==="rect") ctx.fillRect(-p.r, -p.r*0.6, p.r*1.8, p.r*0.9);
+        else { ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); }
+        ctx.restore();
+      }
+    }
+    if(alive && t<6) requestAnimationFrame(loop); else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+function doFlash(){
+  const f = document.querySelector(".surprise-flash");
+  if(!f) return;
+  f.classList.add("on");
+  setTimeout(()=> f.classList.remove("on"), 180);
+  setTimeout(()=>{ f.classList.add("on"); setTimeout(()=>f.classList.remove("on"), 120); }, 340);
+}
 function triggerSurprise(){
   if(surprised) return;
   surprised = true;
   surpriseSec.classList.add("surprised");
+  doFlash();
   surpriseHeartsExplosion();
-  // flash
-  gsap.fromTo(surpriseSec, {backgroundColor:"#050308"}, {backgroundColor:"#1a0e24", duration:.6, ease:"power2.out", yoyo:true, repeat:1});
+  doConfetti();
+  gsap.fromTo(surpriseSec, {backgroundColor:"#0f0509"}, {backgroundColor:"#2a1028", duration:.65, ease:"power2.out", yoyo:true, repeat:1});
   gsap.to("#surprise-canvas", {opacity:1, duration:.4});
+  // shake
+  gsap.fromTo(surpriseSec, {x:0}, {x:2, duration:.08, yoyo:true, repeat:7, ease:"none", onComplete:()=> gsap.set(surpriseSec,{x:0})});
   // reveal text
   setTimeout(()=> surpriseSec.classList.add("revealed"), 520);
-  // second burst
-  setTimeout(surpriseHeartsExplosion, 900);
+  // second + third burst
+  setTimeout(surpriseHeartsExplosion, 700);
+  setTimeout(()=>{ surpriseHeartsExplosion(); doConfetti(); }, 1400);
   // subtle canvas glow
   if(surpriseCanvas){
     const ctx = surpriseCanvas.getContext("2d");
@@ -499,7 +543,8 @@ $("#restart-btn").addEventListener("click", ()=>{
   gsap.to(window, {duration:1.1, scrollTo:0, ease:"power3.inOut"});
 });
 
-// ----- music: Begin Again - Taylor Swift -----
+// ----- music: Begin Again - Taylor Swift (FULL via YouTube) + preview fallback -----
+let ytPlayer = null, ytReady = false, ytPlaying = false;
 const bgAudio = document.getElementById("bg-audio");
 let audioPlaying = false;
 const musicBtn = document.getElementById("music-btn");
@@ -507,42 +552,70 @@ function setMusicUI(on){
   if(!musicBtn) return;
   const span = musicBtn.querySelector("span");
   if(span) span.textContent = on ? "playing — begin again ♡" : "begin again — taylor swift";
-  musicBtn.style.background = on ? "rgba(255,107,157,.22)" : "";
-  musicBtn.style.borderColor = on ? "rgba(255,107,157,.32)" : "";
+  musicBtn.classList.toggle("playing", on);
 }
+function playFull(){
+  if(ytReady && ytPlayer && ytPlayer.playVideo) {
+    ytPlayer.setVolume(72);
+    ytPlayer.playVideo();
+    ytPlaying = true; audioPlaying = true;
+    if(bgAudio) { try{bgAudio.pause();}catch(e){} }
+    setMusicUI(true);
+    return true;
+  }
+  return false;
+}
+function pauseFull(){
+  let did=false;
+  if(ytPlayer && ytPlaying && ytPlayer.pauseVideo){ ytPlayer.pauseVideo(); did=true; }
+  if(bgAudio && !bgAudio.paused){ bgAudio.pause(); did=true; }
+  if(did){ ytPlaying=false; audioPlaying=false; setMusicUI(false); }
+  return did;
+}
+// YouTube IFrame API callback
+window.onYouTubeIframeAPIReady = () => {
+  ytPlayer = new YT.Player("yt-player", {
+    height:"1", width:"1",
+    videoId:"cMPEd8m79Hw", // Begin Again - Taylor Swift (official) - full song
+    playerVars:{ playsinline:1, controls:0, loop:1, playlist:"cMPEd8m79Hw", modestbranding:1, rel:0 },
+    events:{
+      onReady:()=>{ ytReady=true; // keep paused until user taps
+      },
+      onStateChange:(e)=>{
+        if(e.data===YT.PlayerState.PLAYING){ ytPlaying=true; audioPlaying=true; setMusicUI(true); }
+        if(e.data===YT.PlayerState.PAUSED || e.data===YT.PlayerState.ENDED){ if(e.data===YT.PlayerState.ENDED) ytPlayer.seekTo(0); }
+      }
+    }
+  });
+};
 if(bgAudio && musicBtn){
   bgAudio.volume = 0.72;
   musicBtn.addEventListener("click", async ()=>{
+    // if YT ready, prefer full song
+    if(ytReady){
+      if(ytPlaying) pauseFull();
+      else playFull();
+      return;
+    }
+    // fallback: preview audio while YT loads
     try{
       if(!audioPlaying){
         await bgAudio.play();
-        audioPlaying = true;
-        setMusicUI(true);
+        audioPlaying = true; setMusicUI(true);
       } else {
-        bgAudio.pause();
-        audioPlaying = false;
-        setMusicUI(false);
+        bgAudio.pause(); audioPlaying=false; setMusicUI(false);
       }
     }catch(e){
-      // autoplay blocked - show hint
       musicBtn.querySelector("span").textContent = "tap again to play ♡";
-      console.warn("audio play failed", e);
     }
   });
-  bgAudio.addEventListener("ended", ()=>{ audioPlaying=false; setMusicUI(false); });
-  bgAudio.addEventListener("pause", ()=>{ if(bgAudio.currentTime>0.1 && !bgAudio.ended) { /* user paused */ }});
-  // try gentle autoplay after loader (may be blocked until interaction)
-  bgAudio.addEventListener("canplay", ()=>{
-    // don't autoplay aggressively - wait for user tap per browser policy
-  });
-  // also allow first interaction anywhere to start music
-  let firstTap = false;
+  bgAudio.addEventListener("ended", ()=>{ audioPlaying=false; if(!ytPlaying) setMusicUI(false); });
+  // first user interaction tries YT, else fallback
+  let firstTap=false;
   document.addEventListener("click", ()=>{
-    if(firstTap) return;
-    firstTap = true;
-    if(!audioPlaying && bgAudio.paused){
-      bgAudio.play().then(()=>{ audioPlaying=true; setMusicUI(true); }).catch(()=>{});
-    }
+    if(firstTap) return; firstTap=true;
+    if(ytReady && !ytPlaying && !audioPlaying) playFull();
+    else if(!audioPlaying && bgAudio && bgAudio.paused) bgAudio.play().then(()=>{audioPlaying=true; setMusicUI(true)}).catch(()=>{});
   }, {once:true});
 }
 

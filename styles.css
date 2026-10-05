@@ -347,3 +347,73 @@ body::after{
 }
 /* keep content above grain */
 #hero, #video-sec, .pad, #surprise, #final, #foot, .cute-ticker{ position:relative; z-index:1 }
+
+/* SURPRISE WAH UPGRADE */
+#surprise{
+  background:
+    radial-gradient(700px 500px at 50% 35%, rgba(255,107,157,0.16), transparent 68%),
+    radial-gradient(600px 420px at 78% 68%, rgba(240,171,252,0.10), transparent 70%),
+    linear-gradient(180deg, #0f0509 0%, #1a0a1c 45%, #2a1028 100%);
+}
+.surprise-orb{
+  position:absolute; border-radius:50%; pointer-events:none; filter:blur(40px); opacity:0.55;
+}
+.surprise-orb.orb1{ width:520px;height:520px; left:-80px; top:8%; background:radial-gradient(circle, rgba(255,107,157,0.22), transparent 70%)}
+.surprise-orb.orb2{ width:640px;height:640px; right:-120px; bottom:4%; background:radial-gradient(circle, rgba(240,171,252,0.16), transparent 70%)}
+.surprise-spotlight{
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(560px 420px at 50% 42%, rgba(255,255,255,0.06), transparent 72%);
+  opacity:0; transition:opacity .6s;
+}
+#surprise.surprised .surprise-spotlight{ opacity:1 }
+#confetti-canvas{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2 }
+.surprise-flash{
+  position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:3;
+  transition:opacity .18s;
+}
+.surprise-flash.on{ opacity:0.82 }
+.surprise-hint{ font-family:"Patrick Hand",cursive; color:rgba(255,214,231,.62); font-size:15px; margin-bottom:14px; letter-spacing:.02em }
+.surprise-wait .w1{ display:inline-block; animation:waitPulse 1.6s ease-in-out infinite }
+.surprise-wait .dots{ display:inline-block; animation:dotPulse 1.2s ease-in-out infinite }
+@keyframes waitPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes dotPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.super-cta{ position:relative; overflow:visible; padding:17px 30px; font-size:.88rem; box-shadow:0 14px 36px rgba(0,0,0,.28), 0 0 28px rgba(255,107,157,.18) !important }
+.super-cta .cta-ring{
+  position:absolute; inset:-3px; border-radius:999px; border:1px solid rgba(255,214,231,.32);
+  animation:ringPulse 1.8s ease-out infinite;
+}
+@keyframes ringPulse{0%{transform:scale(1); opacity:.7}100%{transform:scale(1.10); opacity:0}}
+.super-cta .cta-heart{ font-size:15px; filter:drop-shadow(0 0 8px rgba(255,107,157,.8)); animation:heartBeat 1.1s ease-in-out infinite }
+@keyframes heartBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+#surprise.surprised .super-cta{ transform:scale(.96); opacity:.45; pointer-events:none }
+
+#surprise-reveal{
+  position:relative; z-index:2;
+}
+.reveal-heart-big{
+  font-size:56px; color:var(--pink); filter:drop-shadow(0 0 22px rgba(255,107,157,.9));
+  animation:bigHeart 1.2s ease-out both;
+  margin-bottom:8px;
+}
+@keyframes bigHeart{0%{transform:scale(.3) rotate(-8deg); opacity:0} 60%{transform:scale(1.16) rotate(3deg)} 100%{transform:scale(1) rotate(0); opacity:1}}
+.reveal-name .rh{ animation:rhPop .7s .4s both }
+@keyframes rhPop{0%{transform:scale(0)} 100%{transform:scale(1)}}
+.reveal-actions{ margin-top:16px }
+.reveal-badge{
+  display:inline-block; background:linear-gradient(180deg, #fff, #fff0f6);
+  color:#4a1438; border:1px solid rgba(255,214,231,.5);
+  padding:8px 16px; border-radius:999px; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(255,107,157,.18);
+}
+#surprise.revealed .reveal-line{ animation:revealUp .7s .15s both }
+#surprise.revealed .reveal-name{ animation:revealUp .7s .30s both }
+#surprise.revealed .reveal-sub{ animation:revealUp .7s .45s both }
+#surprise.revealed .reveal-cute{ animation:revealUp .7s .60s both }
+#surprise.revealed .reveal-actions{ animation:revealUp .7s .75s both }
+@keyframes revealUp{ from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
+
+/* music button when YT playing */
+#music-btn.playing{ background:rgba(255,107,157,.20)!important; border-color:rgba(255,107,157,.32)!important }
+#music-btn.playing .music-art{ box-shadow:0 0 0 2px rgba(255,107,157,.35); animation:spinArt 6s linear infinite }
+@keyframes spinArt{ to{transform:rotate(360deg)} }
+

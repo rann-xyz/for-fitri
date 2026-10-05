@@ -29,9 +29,13 @@
 <div id="progress"><div id="progress-bar"></div></div>
 
 <!-- audio: Begin Again - Taylor Swift (Taylor's Version) -->
-<audio id="bg-audio" preload="none" loop crossorigin="anonymous">
+<audio id="bg-audio" preload="metadata" loop crossorigin="anonymous">
   <source src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bb/13/17/bb131769-c591-3027-b0f2-cb9bb1364a35/mzaf_3957673917538624485.plus.aac.p.m4a" type="audio/mp4">
 </audio>
+<!-- Full song via YouTube (hidden) - autop plays full Begin Again - replace videoId if needed -->
+<div id="yt-wrap" aria-hidden="true" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;pointer-events:none">
+  <div id="yt-player"></div>
+</div>
 
 <nav id="nav">
   <span class="nav-logo">fitri — agis</span>
@@ -204,15 +208,29 @@
 
 <section id="surprise">
   <canvas id="surprise-canvas" aria-hidden="true"></canvas>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+  <div class="surprise-flash" aria-hidden="true"></div>
+  <div class="surprise-spotlight" aria-hidden="true"></div>
+  <div class="surprise-orb orb1" aria-hidden="true"></div>
+  <div class="surprise-orb orb2" aria-hidden="true"></div>
   <div class="surprise-inner">
-    <p class="eyebrow">one more thing —</p>
-    <h2 class="surprise-wait">wait...</h2>
-    <button id="surprise-btn" class="cta ghost">open the surprise</button>
+    <p class="eyebrow">one more thing — <span class="mini">🎁</span></p>
+    <h2 class="surprise-wait"><span class="w1">wait</span><span class="dots">...</span></h2>
+    <p class="surprise-hint">something i've been wanting to say</p>
+    <button id="surprise-btn" class="cta ghost super-cta">
+      <span class="cta-ring"></span>
+      <span class="cta-text">open the surprise</span>
+      <span class="cta-heart">♥</span>
+    </button>
     <div id="surprise-reveal" aria-hidden="true">
+      <div class="reveal-heart-big">♥</div>
       <p class="reveal-line">it's always been you,</p>
-      <p class="reveal-name">fitri. <span>♥</span></p>
+      <p class="reveal-name"><span class="rn">fitri.</span> <span class="rh">♥</span></p>
       <p class="reveal-sub">in every version of tomorrow i imagine — you're there.</p>
-      <p class="reveal-cute">kamu gemoy banget sih 🥺🎀</p>
+      <p class="reveal-cute">kamu gemoy banget sih 🥺🎀 — my forever person</p>
+      <div class="reveal-actions">
+        <span class="reveal-badge">♡ agis loves fitri ♡</span>
+      </div>
     </div>
   </div>
 </section>
@@ -231,6 +249,7 @@
 
 <div id="sticker-burst" aria-hidden="true"></div>
 <footer id="foot">© for fitri — <span id="year"></span> · built for GitHub Pages <span>🎀</span></footer>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script type="module" src="script.js"></script>
 </body>
 </html>

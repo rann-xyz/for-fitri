@@ -1,228 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Fitri</title>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
-    <!-- Three.js + GSAP from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ExpressiveEPSA.min.js"></script>
-    
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for fitri — still you.</title>
+<meta name="description" content="for fitri — some stories are meant to be remembered.">
+<meta name="theme-color" content="#0a0610">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="loading-heart"></div>
-            <div class="loading-particles"></div>
-            <p class="loading-text">something special is waiting for you...</p>
-        </div>
+<!-- Cursor -->
+<div id="cursor-glow" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+
+<!-- Progress -->
+<div id="progress"><div id="progress-bar"></div></div>
+
+<!-- Top nav -->
+<nav id="nav">
+  <span class="nav-logo">fitri — rann</span>
+  <button id="music-btn" aria-label="toggle ambience">♪ <span>sound off</span></button>
+</nav>
+
+<!-- LOADING -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-heart-wrap">
+      <div class="loader-heart">♥</div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring2"></div>
     </div>
+    <p class="loader-text">something special is waiting for you...</p>
+    <div class="loader-line"><div class="loader-line-fill"></div></div>
+    <span class="loader-pct">0%</span>
+  </div>
+  <canvas id="loader-canvas" aria-hidden="true"></canvas>
+</div>
 
-    <!-- Cursor Glow -->
-    <div id="cursor-glow"></div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div id="hero-hearts" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="eyebrow">a love letter in motion —</p>
+    <h1 class="hero-title">
+      <span class="line"><i>for</i> fitri</span>
+    </h1>
+    <p class="hero-sub">some stories are meant<br>to be remembered.</p>
+    <button id="enter-btn" class="cta">enter our story <span>→</span></button>
+    <p class="hero-hint">scroll gently — take your time</p>
+  </div>
+  <div class="hero-scroll-indicator"><span></span></div>
+</section>
 
-    <!-- Progress Indicator -->
-    <div class="progress-container">
-        <div class="progress-bar"></div>
-        <span class="progress-text">0%</span>
+<!-- VIDEO -->
+<section id="video-sec">
+  <div class="video-wrap">
+    <!-- Replace src with your own video. Keep muted autoplay loop playsinline for GitHub Pages -->
+    <video id="bg-video" autoplay muted loop playsinline poster="">
+      <source src="https://cdn.coverr.co/videos/coverr-sunset-over-the-sea-1578612799086?download=1" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="video-overlay2"></div>
+  </div>
+  <div class="video-content">
+    <p class="eyebrow light">chapter i — presence</p>
+    <h2>a moment<br><i>frozen in time</i></h2>
+    <p class="video-cap">replace the video URL in <code>index.html</code> → search for <code>bg-video</code> — any mp4 works. overlay keeps text readable.</p>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section id="story" class="pad">
+  <div class="section-head">
+    <p class="eyebrow">our story</p>
+    <h2>how we <i>got here</i></h2>
+    <p class="section-sub">not grand gestures — just little pieces that kept fitting.</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-line" aria-hidden="true"><span></span></div>
+
+    <article class="tl-card" data-y="30">
+      <span class="tl-num">01</span>
+      <h3>the beginning</h3>
+      <p>one notification. one reply that stayed a little longer than it should have.</p>
+      <span class="tl-meta">— where it all quietly started</span>
+    </article>
+
+    <article class="tl-card" data-y="30">
+      <span class="tl-num">02</span>
+      <h3>the first conversation</h3>
+      <p>laughing at nothing, talking about everything — like we'd known the rhythm before.</p>
+      <span class="tl-meta">— and time forgot to move</span>
+    </article>
+
+    <article class="tl-card" data-y="30">
+      <span class="tl-num">03</span>
+      <h3>the little moments</h3>
+      <p>ordinary days that felt different just because you were in them.</p>
+      <span class="tl-meta">— coffee, late chats, soft silences</span>
+    </article>
+
+    <article class="tl-card" data-y="30">
+      <span class="tl-num">04</span>
+      <h3>today</h3>
+      <p>still choosing you. still finding new reasons to.</p>
+      <span class="tl-meta">— and tomorrow, again</span>
+    </article>
+  </div>
+</section>
+
+<!-- MEMORIES -->
+<section id="memories" class="pad dark">
+  <div class="section-head">
+    <p class="eyebrow">memories</p>
+    <h2>pieces i <i>keep</i></h2>
+    <p class="section-sub">replace images in <code>assets/</code> or swap the unsplash URLs in <code>index.html</code>.</p>
+  </div>
+  <div class="mem-grid">
+    <figure class="mem" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80&auto=format" alt="memory 1" onerror="this.style.display='none'">
+      <figcaption><span>first adventure</span><small>that day felt lighter</small></figcaption>
+    </figure>
+    <figure class="mem" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=800&q=80&auto=format" alt="memory 2" onerror="this.style.display='none'">
+      <figcaption><span>laughter under stars</span><small>you, without trying</small></figcaption>
+    </figure>
+    <figure class="mem tall" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80&auto=format" alt="memory 3" onerror="this.style.display='none'">
+      <figcaption><span>sunrise</span><small>soft light, softer you</small></figcaption>
+    </figure>
+    <figure class="mem" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80&auto=format" alt="memory 4" onerror="this.style.display='none'">
+      <figcaption><span>quiet conversations</span><small>hours felt like minutes</small></figcaption>
+    </figure>
+    <figure class="mem" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=800&q=80&auto=format" alt="memory 5" onerror="this.style.display='none'">
+      <figcaption><span>cozy moments</span><small>home was a feeling</small></figcaption>
+    </figure>
+    <figure class="mem wide" data-tilt>
+      <img loading="lazy" src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=1200&q=80&auto=format" alt="memory 6" onerror="this.style.display='none'">
+      <figcaption><span>tomorrow awaits</span><small>still writing it</small></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section id="letter" class="pad">
+  <div class="section-head">
+    <p class="eyebrow">a letter</p>
+    <h2>words i <i>never said</i> aloud</h2>
+    <p class="section-sub">tap the envelope —</p>
+  </div>
+
+  <div id="envelope-wrap">
+    <button id="envelope" aria-label="open love letter">
+      <div class="env-shadow"></div>
+      <div class="env-body">
+        <div class="env-flap"></div>
+        <div class="env-front"></div>
+        <div class="env-letter-peek"></div>
+        <span class="env-seal">♥</span>
+      </div>
+      <span class="env-hint">open</span>
+    </button>
+  </div>
+
+  <div id="letter-modal" aria-hidden="true">
+    <div class="letter-backdrop"></div>
+    <div class="letter-paper">
+      <button id="letter-close" aria-label="close">×</button>
+      <p class="letter-head">Dear Fitri,</p>
+      <div id="typed-letter"></div>
+      <p class="letter-sign">— Rann <span>❤️</span></p>
     </div>
+  </div>
+</section>
 
-    <!-- Music Toggle -->
-    <div class="music-toggle">
-        <span id="music-icon">🎵</span>
+<!-- WHY YOU -->
+<section id="why" class="pad dark">
+  <div class="section-head">
+    <p class="eyebrow">why you</p>
+    <h2>simple reasons, <i>endless</i> meaning</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card" data-tilt><span class="why-icon">☺</span><h3>your smile</h3><p>the kind that makes a room feel warmer without trying.</p></div>
+    <div class="why-card" data-tilt><span class="why-icon">✦</span><h3>your personality</h3><p>soft, honest, a little stubborn — exactly the way i like it.</p></div>
+    <div class="why-card" data-tilt><span class="why-icon">◐</span><h3>how you make ordinary<br>moments special</h3><p>you turn waiting, walking, nothing — into something.</p></div>
+    <div class="why-card" data-tilt><span class="why-icon">♥</span><h3>simply because<br>you're you</h3><p>no reason needed. just you — and that's enough.</p></div>
+  </div>
+</section>
+
+<!-- SURPRISE -->
+<section id="surprise">
+  <canvas id="surprise-canvas" aria-hidden="true"></canvas>
+  <div class="surprise-inner">
+    <p class="eyebrow">one more thing —</p>
+    <h2 class="surprise-wait">wait...</h2>
+    <button id="surprise-btn" class="cta ghost">open the surprise</button>
+    <div id="surprise-reveal" aria-hidden="true">
+      <p class="reveal-line">it's always been you,</p>
+      <p class="reveal-name">fitri. <span>♥</span></p>
+      <p class="reveal-sub">in every version of tomorrow i imagine — you're there.</p>
     </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="hero-section">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">for fitri</h1>
-            <p class="hero-subtitle">some stories are meant to be remembered.</p>
-            <button class="cta-button" id="cta-button">enter our story →</button>
-        </div>
-        <div id="threejs-container"></div>
-    </section>
+<!-- FINAL -->
+<section id="final">
+  <canvas id="final-canvas" aria-hidden="true"></canvas>
+  <div class="final-bg"></div>
+  <div class="final-content">
+    <h2 class="final-title">still <i>you.</i></h2>
+    <p class="final-sub">out of everyone in this world,<br>I'd still choose you.</p>
+    <button id="restart-btn" class="cta">restart experience <span>↺</span></button>
+    <p class="final-foot">made with love — by Rann</p>
+  </div>
+</section>
 
-    <!-- Video Background Section -->
-    <section class="video-section" id="video-section">
-        <div class="video-overlay"></div>
-        <div class="video-content">
-            <h2 class="video-title">a moment frozen in time</h2>
-        </div>
-        <video autoplay muted loop playsinline id="hero-video">
-            <source src="assets/placeholder-video.mp4" type="video/mp4">
-        </video>
-    </section>
+<footer id="foot">© for fitri — <span id="year"></span> · built for GitHub Pages</footer>
 
-    <!-- Our Story Section -->
-    <section class="story-section" id="story-section">
-        <div class="section-header">
-            <h2 class="section-title">our story</h2>
-            <p class="section-subtitle">a journey worth remembering</p>
-        </div>
-        <div class="timeline-container">
-            <div class="timeline-card" data-timeline="1">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <h3>the beginning</h3>
-                    <p>Your story started with a single moment, a spark that ignited everything.</p>
-                </div>
-            </div>
-            <div class="timeline-card" data-timeline="2">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <h3>the first conversation</h3>
-                    <p>Laughter, curiosity, and the magic of meeting someone special.</p>
-                </div>
-            </div>
-            <div class="timeline-card" data-timeline="3">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <h3>the little moments</h3>
-                    <p>Everyday simplicity transformed into extraordinary memories.</p>
-                </div>
-            </div>
-            <div class="timeline-card" data-timeline="4">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <h3>today</h3>
-                    <p>Every moment with you feels like coming home.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Memory Gallery Section -->
-    <section class="memory-section" id="memory-section">
-        <div class="section-header">
-            <h2 class="section-title">memories</h2>
-            <p class="section-subtitle">moments that define us</p>
-        </div>
-        <div class="memory-grid">
-            <div class="memory-card" data-memory="1">
-                <div class="card-glow"></div>
-                <img src="assets/memory1.jpg" alt="Memory 1">
-                <div class="memory-overlay">
-                    <p>Our first adventure together</p>
-                </div>
-            </div>
-            <div class="memory-card" data-memory="2">
-                <div class="card-glow"></div>
-                <img src="assets/memory2.jpg" alt="Memory 2">
-                <div class="memory-overlay">
-                    <p>Laughter under the stars</p>
-                </div>
-            </div>
-            <div class="memory-card" data-memory="3">
-                <div class="card-glow"></div>
-                <img src="assets/memory3.jpg" alt="Memory 3">
-                <div class="memory-overlay">
-                    <p>Sunrise dreams</p>
-                </div>
-            </div>
-            <div class="memory-card" data-memory="4">
-                <div class="card-glow"></div>
-                <img src="assets/memory4.jpg" alt="Memory 4">
-                <div class="memory-overlay">
-                    <p>Cozy moments</p>
-                </div>
-            </div>
-            <div class="memory-card" data-memory="5">
-                <div class="card-glow"></div>
-                <img src="assets/memory5.jpg" alt="Memory 5">
-                <div class="memory-overlay">
-                    <p>Quiet conversations</p>
-                </div>
-            </div>
-            <div class="memory-card" data-memory="6">
-                <div class="card-glow"></div>
-                <img src="assets/memory6.jpg" alt="Memory 6">
-                <div class="memory-overlay">
-                    <p>Tomorrow awaits</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Love Letter Section -->
-    <section class="letter-section" id="letter-section">
-        <div class="section-header">
-            <h2 class="section-title">love letter</h2>
-            <p class="section-subtitle">words I've never said aloud</p>
-        </div>
-        <div class="envelope-container">
-            <div class="envelope" id="open-envelope">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body"></div>
-            </div>
-        </div>
-        <div class="letter-overlay" id="letter-overlay">
-            <div class="letter-content" id="letter-content">
-            </div>
-        </div>
-    </section>
-
-    <!-- Why You Section -->
-    <section class="why-section" id="why-section">
-        <div class="section-header">
-            <h2 class="section-title">why you</h2>
-            <p class="section-subtitle">the simple reasons that make everything complex</p>
-        </div>
-        <div class="why-grid">
-            <div class="why-card" data-reason="1">
-                <div class="card-glow"></div>
-                <div class="card-icon">😊</div>
-                <h3>your smile</h3>
-            </div>
-            <div class="why-card" data-reason="2">
-                <div class="card-glow"></div>
-                <div class="card-icon">💫</div>
-                <h3>your personality</h3>
-            </div>
-            <div class="why-card" data-reason="3">
-                <div class="card-glow"></div>
-                <div class="card-icon">⭐</div>
-                <h3>the way you make ordinary moments special</h3>
-            </div>
-            <div class="why-card" data-reason="4">
-                <div class="card-glow"></div>
-                <div class="card-icon">❤️</div>
-                <h3>simply because you're you</h3>
-            </div>
-        </div>
-    </section>
-
-    <!-- Surprise Section -->
-    <section class="surprise-section" id="surprise-section">
-        <div class="surprise-content">
-            <h2 class="surprise-title">wait...</h2>
-            <button class="surprise-button" id="open-surprise">open the surprise</button>
-        </div>
-        <div id="surprise-explosion"></div>
-    </section>
-
-    <!-- Final Screen -->
-    <section class="final-section" id="final-section">
-        <div class="final-overlay"></div>
-        <div class="final-content">
-            <h1 class="final-title">still you.</h1>
-            <p class="final-subtitle">out of everyone in this world, I'd still choose you.</p>
-            <button class="restart-button" id="restart-button">restart experience</button>
-        </div>
-        <div id="final-hearts"></div>
-    </section>
-
-    <!-- 3D Heart Container -->
-    <div id="heart-container" class="hidden"></div>
-
-    <script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>

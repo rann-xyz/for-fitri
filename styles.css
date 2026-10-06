@@ -235,19 +235,74 @@ body::after{
 .mem-grid{display:grid;grid-template-columns:1fr;gap:18px;max-width:1100px;margin:0 auto}
 @media(min-width:640px){.mem-grid{grid-template-columns:1fr 1fr;gap:18px}}
 @media(min-width:1000px){.mem-grid{grid-template-columns:1.1fr 1fr 1fr}}
-.mem{
-  position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(180deg, #2e1426 0%, #2a1020 100%);border:1px solid rgba(255,182,193,.16); box-shadow:0 14px 36px rgba(0,0,0,.28), 0 0 18px rgba(255,107,157,.07);
-  min-height:260px;overflow:visible;
+/* ===== ALBUM POLAROID FRAMES - cute & romantis ===== */
+#memories.dark{
+  background:
+    radial-gradient(700px 400px at 50% 0%, rgba(255,143,171,.06), transparent 70%),
+    linear-gradient(180deg,#1e0a1c 0%, #25101e 40%, #1a0a14 100%);
+  position:relative;
 }
-.mem img{width:100%;height:100%;object-fit:cover;border-radius:20px;transition:transform .7s ease,filter .5s}
-.mem:hover img{transform:scale(1.04);filter:brightness(1.04)}
-.mem::after{content:"";position:absolute;inset:0;border-radius:20px;background:linear-gradient(to top,rgba(0,0,0,.48) 10%,rgba(0,0,0,.04) 55%,transparent 100%);pointer-events:none}
-.mem figcaption{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:flex;flex-direction:column;gap:3px; text-shadow:0 1px 10px rgba(0,0,0,.45)}
-.mem figcaption span{font-family:"Instrument Serif",serif;font-size:1.2rem;letter-spacing:-.02em}
-.mem figcaption small{color:rgba(255,255,255,.74);font-size:.82rem}
-.tape{position:absolute;top:-8px;left:50%;width:58px;height:16px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,214,231,.90));border:1px solid rgba(0,0,0,.06);box-shadow:0 4px 12px rgba(0,0,0,.14);z-index:2;transform:translateX(-50%) rotate(-1.5deg);opacity:.96}
-.tape.t2{transform:translateX(-50%) rotate(1.8deg)}
-.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(0,0,0,.03) 6px 7px)}
+#memories.dark::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.06;
+  background-image: radial-gradient(rgba(255,182,193,.9) 1.1px, transparent 1.1px);
+  background-size:22px 22px;
+}
+.mem-grid{ position:relative; z-index:1 }
+.mem{
+  position:relative;
+  background:#fffdf8;
+  padding:10px 10px 48px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,214,231,.55);
+  box-shadow:0 14px 32px rgba(0,0,0,.28), 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(255,182,193,.12);
+  min-height:0;
+  overflow:visible;
+  transition:transform .35s, box-shadow .35s, border-color .35s;
+}
+.mem:nth-child(4n+1){ background:#fffaf6; transform:rotate(-0.55deg) }
+.mem:nth-child(4n+2){ background:#fff5f8; transform:rotate(0.45deg) }
+.mem:nth-child(4n+3){ background:#fef8ff; transform:rotate(-0.25deg) }
+.mem:nth-child(4n+4){ background:#fffdf8; transform:rotate(0.35deg) }
+.mem:nth-child(3n+2){ border-color:rgba(240,171,252,.38) }
+.mem:nth-child(5n){ border-color:rgba(255,182,193,.45) }
+.mem:hover{ transform:rotate(0) translateY(-4px) scale(1.015) !important; box-shadow:0 18px 40px rgba(0,0,0,.32), 0 0 18px rgba(255,107,157,.10); border-color:rgba(255,143,171,.42) !important; z-index:3 }
+.mem img{
+  width:100%; height:230px; object-fit:cover; border-radius:10px;
+  display:block; transition:transform .6s ease, filter .35s;
+  border:1px solid rgba(0,0,0,.04);
+}
+@media(min-width:640px){ .mem img{ height:240px } }
+@media(min-width:1000px){ .mem img{ height:210px } }
+.mem.tall img{ height:300px }
+.mem.wide img{ height:260px }
+.mem:hover img{ transform:scale(1.02); filter:brightness(1.03) saturate(1.06) }
+.mem::after{ display:none }
+.mem figcaption{
+  position:absolute; left:10px; right:10px; bottom:10px;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap:1px; z-index:2; pointer-events:none;
+  text-shadow:none;
+}
+.mem figcaption span{
+  font-family:"Patrick Hand",cursive; font-size:.98rem; letter-spacing:.02em;
+  color:#4a1438; line-height:1.1;
+}
+.mem figcaption small{
+  font-family:"Plus Jakarta Sans", sans-serif; font-size:.68rem; letter-spacing:.08em;
+  text-transform:uppercase; color:rgba(74,20,56,.55);
+}
+/* washi tape - cuter, more visible on album */
+.tape{position:absolute;top:-9px;left:50%;width:62px;height:18px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,214,231,.92));border:1px solid rgba(0,0,0,.06);box-shadow:0 5px 14px rgba(0,0,0,.16);z-index:5;transform:translateX(-50%) rotate(-1.4deg);opacity:1; border-radius:2px}
+.tape.t2{transform:translateX(-50%) rotate(1.6deg); background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(240,230,255,.92))}
+.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(0,0,0,.03) 6px 7px); border-radius:2px}
+/* little corner doodle - heart at bottom of polaroid */
+.mem::before{
+  content:"♡"; position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  font-size:9px; color:rgba(255,143,171,.52); letter-spacing:.25em; pointer-events:none;
+}
+/* scallop edge for some frames - via outline dash */
+.mem:nth-child(3n){ outline:2px dashed rgba(255,182,193,.28); outline-offset:3px; border-radius:14px }
+.mem:nth-child(7n){ outline-style:dotted }
 .mem-foot{max-width:1100px;margin:16px auto 0;text-align:center;font-family:"Patrick Hand",cursive;color:rgba(255,182,193,.7);font-size:15px}
 
 /* letter */
@@ -454,7 +509,7 @@ body::after{
 
 /* PHOTO STICKERS - each photo has unique sticker, more alive */
 .mem-sticker{
-  position:absolute; z-index:4;
+  position:absolute; z-index:6;
   background:#fff; border:1px solid rgba(255,182,193,.14);
   border-radius:12px; padding:4px 6px; font-size:14px; line-height:1;
   box-shadow:0 4px 14px rgba(0,0,0,.16), 0 1px 0 rgba(255,255,255,.9) inset;
@@ -488,3 +543,12 @@ body::after{
 .mem figcaption span{ text-shadow:0 1px 12px rgba(0,0,0,.5) }
 .mem figcaption small{ text-shadow:0 1px 8px rgba(0,0,0,.4) }
 .music-title{ letter-spacing:.03em }
+
+/* album header deco */
+#memories .section-head{ position:relative; z-index:1 }
+#memories .section-head::after{
+  content:"✦  album  •  21 memories  ✦";
+  display:block; margin-top:10px;
+  font-family:"Patrick Hand",cursive; font-size:.82rem; letter-spacing:.12em;
+  text-transform:uppercase; color:rgba(255,214,231,.62);
+}

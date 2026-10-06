@@ -15,7 +15,7 @@
   --blush:#f8a6be;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth; scrollbar-gutter:stable}
+html{scroll-behavior:smooth}
 body{background:var(--bg); color:#f5ecef; font-family:"Plus Jakarta Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden}
 img{display:block;max-width:100%}
 button{font:inherit}
@@ -181,7 +181,7 @@ body::before{
 .f-wrap{overflow:hidden; border-radius:12px; aspect-ratio:16/10; background:#f6efe8}
 .f-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%; transition:transform .5s}
 .feature:hover img{transform:scale(1.02)}
-.f-tape{position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:64px; height:15px; background:rgba(255,255,255,.92); border:1px solid rgba(30,20,24,.06); border-radius:2px; box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.f-tape{position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:56px; height:15px; background:rgba(255,255,255,.92); border:1px solid rgba(30,20,24,.06); border-radius:2px; box-shadow:0 3px 10px rgba(0,0,0,.08)}
 .f-tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 6px, rgba(0,0,0,.03) 6px 7px)}
 .f-sticker{position:absolute; font-size:14px; background:#fff; border:1px solid var(--line2); border-radius:10px; padding:3px 6px; box-shadow:0 3px 10px rgba(0,0,0,.08)}
 .f-sticker.s1{top:-6px; right:14px; transform:rotate(5deg)}
@@ -446,8 +446,9 @@ body::before{
 /* heart divider */
 .heart-divider{
   display:flex; align-items:center; justify-content:center; gap:12px;
-  padding:18px 0; background:var(--panel);
-  color:var(--blush); font-size:13px; letter-spacing:.14em;
+  padding:16px 0; background:var(--panel);
+  color:var(--blush); font-size:12px; letter-spacing:.14em;
+  overflow:hidden;
 }
 .heart-divider::before, .heart-divider::after{
   content:""; height:1px; width:52px; background:linear-gradient(to right, transparent, rgba(201,64,94,.18));
@@ -614,3 +615,48 @@ body::before{
 #confetti-canvas{ z-index:2 }
 #surprise-canvas{ z-index:1 }
 
+
+/* MOBILE FIXES — no horizontal overflow, stickers stay inside */
+html, body{ max-width:100%; overflow-x:clip }
+.section, #hero, #memories, #story, #letter, #why, #surprise, #final, #love-meter{
+  overflow-x:clip;
+}
+@media(max-width:380px){
+  .hero-paper{ max-width:340px; padding:22px 14px 18px }
+  .hero-polaroid{ max-width:180px }
+  .f-sticker{ display:none }
+  .snap .sticker{ font-size:11px; padding:2px 5px; top:-5px; right:6px }
+  .section{ padding-left:14px; padding-right:14px }
+  .tl-card{ margin-left:28px; padding:16px 14px }
+  .tl-line{ left:9px }
+  #envelope{ width:min(320px, 88vw) }
+  .gift-bottom{ inset:16px 6px 8px 6px }
+  .choose-grid{ gap:6px }
+  .choose-btn{ padding:8px 12px; font-size:.72rem }
+}
+@media(max-width:360px){
+  .nav-logo{ font-size:.70rem }
+  .scrap-grid{ gap:10px }
+  .feature{ padding:8px 8px 28px 8px }
+  .final-paper, .meter-card{ padding:18px 14px }
+}
+
+/* prevent CLS and image overflow */
+.snap-photo, .f-wrap, .hp-wrap, .fp-wrap, .rp-wrap, .f-wrap{ min-width:0 }
+.snap, .feature, .hero-polaroid, .final-photo, .reveal-photo{ min-width:0; max-width:100% }
+img{ height:auto }
+
+/* extra cute micro-stickers */
+.hero-mini-heart{
+  position:absolute; bottom:18px; right:14px;
+  font-size:13px; color:rgba(248,166,190,.55);
+  transform:rotate(6deg);
+}
+.meter-sticker{
+  position:absolute; top:-8px; right:12px;
+  font-size:13px; background:#fff; border:1px solid var(--line2);
+  border-radius:9px; padding:2px 6px; transform:rotate(4deg);
+  box-shadow:0 3px 8px rgba(0,0,0,.07);
+}
+.video-bow{ display:block; margin-top:8px; opacity:.85 }
+.video-bow svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.18)) }

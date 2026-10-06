@@ -393,3 +393,176 @@ body::before{
   .hero-paper{padding:24px 16px 18px}
   .feature{padding:8px 8px 30px 8px}
 }
+
+/* ===== CUTE ROMANTIC ENHANCEMENTS — more love, more playful ===== */
+
+/* soft pink wash behind all light sections */
+#story, #memories, #letter, #love-meter{
+  background:
+    radial-gradient(600px 220px at 20% 0%, rgba(248,166,190,.06), transparent 70%),
+    radial-gradient(500px 180px at 85% 10%, rgba(248,166,190,.04), transparent 70%),
+    var(--panel);
+}
+#memories{ background:
+    radial-gradient(700px 260px at 50% 0%, rgba(248,166,190,.07), transparent 70%),
+    var(--panel2);
+}
+
+/* hero more romantic — blush glow + floating bow */
+#hero{
+  background:
+    radial-gradient(800px 420px at 50% -10%, rgba(248,166,190,.14), transparent 72%),
+    radial-gradient(520px 320px at 78% 68%, rgba(248,166,190,.06), transparent 70%),
+    var(--bg);
+}
+.hero-paper{
+  animation: paperIn .7s ease both;
+  border-color: rgba(248,166,190,.18);
+  box-shadow: 0 22px 52px rgba(0,0,0,.30), 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(248,166,190,.10);
+}
+@keyframes paperIn{ from{opacity:0; transform:translateY(8px) rotate(-0.6deg)} to{opacity:1; transform:translateY(0) rotate(-0.4deg)} }
+.s-bow{ animation: bowFloat 3.2s ease-in-out infinite }
+@keyframes bowFloat{ 0%,100%{transform:translateX(-50%) rotate(-1deg) translateY(0)} 50%{transform:translateX(-50%) rotate(-1deg) translateY(-3px)} }
+.hero-sparkle{ animation: twinkle 2.4s ease-in-out infinite }
+.sp1{ animation-delay:.3s } .sp2{ animation-delay:.9s }
+@keyframes twinkle{ 0%,100%{opacity:.9; transform:scale(1)} 50%{opacity:.45; transform:scale(.85)} }
+.hp-caption{ color:var(--pink); }
+.hero-note{ position:relative }
+.hero-note::before, .hero-note::after{ content:"♡"; color:var(--blush); opacity:.7; margin:0 6px; font-size:10px; vertical-align:middle }
+
+/* headings more romantic — wavy underline */
+.section-head h2{
+  position:relative; display:inline-block;
+}
+.section-head h2::after{
+  content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-6px;
+  width:46px; height:6px;
+  background: radial-gradient(circle at 50% 100%, var(--blush) 1.8px, transparent 1.9px);
+  background-size:12px 6px; background-repeat:repeat-x;
+  opacity:.55;
+}
+.sub{ font-style:italic }
+
+/* heart divider */
+.heart-divider{
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:18px 0; background:var(--panel);
+  color:var(--blush); font-size:13px; letter-spacing:.14em;
+}
+.heart-divider::before, .heart-divider::after{
+  content:""; height:1px; width:52px; background:linear-gradient(to right, transparent, rgba(201,64,94,.18));
+}
+.heart-divider::after{ background:linear-gradient(to left, transparent, rgba(201,64,94,.18)) }
+
+/* stickers — subtle wiggle, never cover face (top corner only) */
+.snap .sticker, .f-sticker{
+  animation: stickerWiggle 4.2s ease-in-out infinite;
+  transform-origin:50% 50%;
+}
+.snap:nth-child(2n) .sticker{ animation-delay:.6s }
+.snap:nth-child(3n) .sticker{ animation-delay:1.1s }
+@keyframes stickerWiggle{
+  0%,100%{ transform:rotate(var(--r, -4deg)) translateY(0) }
+  50%{ transform:rotate(calc(var(--r, -4deg) + 1.2deg)) translateY(-1px) }
+}
+.snap .sticker{ top:-7px; right:10px; font-size:12px; padding:4px 7px }
+.snap:hover .sticker{ animation:none; transform:rotate(var(--r, -4deg)) scale(1.08) }
+
+/* polaroid hover more playful */
+.snap:hover{ transform:rotate(0) translateY(-3px) scale(1.015) }
+.feature:hover{ transform:rotate(0) translateY(-2px) }
+
+/* notes more handwritten cute */
+.note{
+  background: #fffefc;
+  border:1px solid rgba(201,64,94,.14);
+  border-radius:16px;
+  box-shadow: 0 6px 14px rgba(30,20,24,.05);
+  position:relative;
+}
+.note::before{
+  content:"✦"; position:absolute; top:8px; right:10px; font-size:10px; color:var(--blush); opacity:.6;
+}
+.note.n1{ transform:rotate(-0.8deg) }
+.note.n2{ transform:rotate(0.6deg); background:#fff8fb }
+.note.n3{ transform:rotate(-0.4deg) }
+
+/* timeline more cute */
+.tl-card{
+  background: #fff;
+  border-radius:18px;
+  transition: transform .2s, box-shadow .2s;
+}
+.tl-card:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(30,20,24,.08) }
+.tl-card:nth-child(odd){ transform:rotate(-0.15deg) }
+.tl-card:nth-child(even){ transform:rotate(0.15deg) }
+.tl-card:hover{ transform:rotate(0) translateY(-2px) !important }
+.tl-doodle{ font-size:13px; opacity:.7; animation: doodleFloat 3s ease-in-out infinite }
+@keyframes doodleFloat{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+
+/* envelope more romantic — blush seal pulse */
+.env-seal{ animation: sealPulse 2.2s ease-in-out infinite; box-shadow:0 4px 12px rgba(201,64,94,.28) }
+@keyframes sealPulse{ 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.06)} }
+#envelope.open .env-seal{ animation:none }
+.env-hint{ font-family:"Caveat",cursive; font-size:13px; letter-spacing:.02em; text-transform:none; opacity:.9 }
+
+/* CTA more romantic — pink */
+#hero .cta, #final .cta, #letter .cta{
+  background: linear-gradient(180deg, #c9405e 0%, #b83a52 100%);
+  color:#fff; border-color:transparent;
+  box-shadow: 0 8px 20px rgba(201,64,94,.28), 0 1px 0 rgba(255,255,255,.22) inset;
+}
+#hero .cta:hover, #final .cta:hover{ background: linear-gradient(180deg, #d14a66 0%, #c9405e 100%); transform:translateY(-1px) }
+
+/* why cards cuter */
+.why-card{
+  position:relative; overflow:hidden;
+  background: #fff;
+  border-color: rgba(248,166,190,.18);
+  transition: transform .2s, box-shadow .2s;
+}
+.why-card::after{
+  content:"♡"; position:absolute; right:12px; bottom:10px; font-size:14px; color:rgba(248,166,190,.28);
+}
+.why-card:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(30,20,24,.08) }
+#why .why-card{ background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.10); color:#f5ecef }
+#why .why-card::after{ color:rgba(248,166,190,.18) }
+#why .why-card h3{ color:#fff }
+#why .why-card p{ color:rgba(245,236,239,.66) }
+
+/* gift box more cute — bounce */
+#gift-box{ animation: giftBob 2.6s ease-in-out infinite }
+@keyframes giftBob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+#gift-box.open{ animation:none }
+.gift-hint{ color:rgba(245,236,239,.72) }
+
+/* love meter more playful */
+.meter-card{ position:relative; overflow:hidden }
+.meter-card::before{
+  content:"♡ ♡ ♡"; position:absolute; top:10px; right:14px; font-size:11px; letter-spacing:.18em; color:rgba(248,166,190,.42);
+}
+#meter{ height:6px; border-radius:999px }
+#meter::-webkit-slider-thumb{ box-shadow:0 2px 8px rgba(201,64,94,.32) }
+#meter-val{ background:var(--pink-pale); padding:4px 8px; border-radius:999px; font-size:.72rem }
+
+/* final more romantic */
+.final-paper{
+  border-color: rgba(248,166,190,.18);
+  box-shadow: 0 20px 48px rgba(30,20,24,.14), 0 1px 0 rgba(255,255,255,.9) inset;
+}
+.final-bow{ animation: bowFloat 3s ease-in-out infinite }
+.final-photo{ border-color:rgba(248,166,190,.16) }
+
+/* mobile: keep everything inside viewport */
+@media(max-width:520px){
+  .snap .sticker{ top:-5px; right:6px; font-size:11px; padding:3px 5px }
+  .feature{ margin-left:4px; margin-right:4px }
+  .hero-paper{ transform:none }
+  .snap.r1,.snap.r2,.snap.r3{ transform:none }
+  .snap:hover{ transform:translateY(-2px) !important }
+}
+
+/* reduce motion respect */
+@media(prefers-reduced-motion:reduce){
+  .s-bow, .hero-sparkle, .snap .sticker, .tl-doodle, #gift-box, .final-bow{ animation:none !important }
+}

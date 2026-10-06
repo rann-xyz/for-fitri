@@ -111,18 +111,57 @@ function confetti(){
   })();
 }
 function flash(){ const f=document.querySelector(".surprise-flash"); if(!f) return; f.classList.add("on"); setTimeout(()=>f.classList.remove("on"),130); }
+function boomHearts(){
+  const host = sSec;
+  for(let i=0;i<28;i++){
+    const h=document.createElement("span");
+    h.textContent=["♥","♡","💗","✦","🎀"][Math.floor(Math.random()*5)];
+    h.style.cssText=`position:absolute;left:${45+Math.random()*10}%;top:52%;font-size:${14+Math.random()*18}px;color:${["#f8a6be","#fff","#fde8ec","#c9405e"][Math.floor(Math.random()*4)]};pointer-events:none;z-index:3`;
+    host.appendChild(h);
+    const dx=(Math.random()-0.5)*420, dy= -80 - Math.random()*220;
+    gsap.fromTo(h,{x:0,y:0,scale:.6,opacity:0},{x:dx,y:dy,scale:1.2,opacity:1,duration:.55,delay:Math.random()*.12,ease:"power2.out",onComplete:()=>{
+      gsap.to(h,{y:dy-40, opacity:0, duration:.5, delay:.2, onComplete:()=>h.remove()});
+    }});
+  }
+}
+function shake(){ gsap.fromTo(sSec,{x:0},{x:3,duration:.07,yoyo:true,repeat:7,ease:"none",onComplete:()=>gsap.set(sSec,{x:0})}); }
+function bigPop(){
+  const h=document.querySelector(".surprise-wait");
+  if(h) gsap.fromTo(h,{scale:1},{scale:1.08,duration:.12,yoyo:true,repeat:1,ease:"power2.out"});
+}
 function goSurprise(){
   if(sur) return; sur=true;
   const lid=sBtn.querySelector(".gift-lid");
   sBtn.classList.add("open");
   if(lid) lid.style.opacity="0";
-  flash(); confetti();
+  // JUMPSCARE: flash + shake + boom
+  flash(); setTimeout(flash,160);
+  shake(); bigPop(); boomHearts(); confetti();
+  gsap.to(sSec,{backgroundColor:"#2a1230",duration:.18,yoyo:true,repeat:1});
+  // play boop sound via WebAudio
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(AC){ const ac=new AC(); const o=ac.createOscillator(), g=ac.createGain();
+      o.type="sine"; o.frequency.setValueAtTime(620,ac.currentTime); o.frequency.exponentialRampToValueAtTimeAt(880,ac.currentTime+.12);
+      g.gain.setValueAtTime(.18,ac.currentTime); g.gain.exponentialRampToValueAtTimeAt(0.01,ac.currentTime+.28);
+      o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime+.3);
+    }
+  }catch(e){}
   sSec.classList.add("revealed");
-  gsap.fromTo(sSec,{backgroundColor:"#120b14"},{backgroundColor:"#1a0f1e",duration:.45,yoyo:true,repeat:1});
-  gsap.from("#surprise-reveal",{y:10,opacity:0,duration:.5,delay:.2});
-  gsap.from(".reveal-photo",{y:12,opacity:0,scale:.98,duration:.5,delay:.4});
-  setTimeout(()=>{ const ch=$("#choose"); if(ch){ ch.style.display="block"; requestAnimationFrame(()=> ch.classList.add("show")); }}, 900);
+  gsap.from("#surprise-reveal",{y:14,opacity:0,duration:.45,delay:.12, ease:"back.out(1.2)"});
+  gsap.from(".reveal-photo",{y:18,opacity:0,scale:.88,rotation:-1,duration:.55,delay:.28, ease:"back.out(1.4)"});
+  gsap.from("#choose",{y:10,opacity:0,duration:.4,delay:.6});
+  setTimeout(()=>{ const ch=$("#choose"); if(ch){ ch.style.display="block"; requestAnimationFrame(()=> ch.classList.add("show")); }}, 500);
+  setTimeout(()=>{ boomHearts(); confetti(); }, 420);
 }
+
+// AUTO JUMPSCARE when scrolling into surprise
+ScrollTrigger.create({
+  trigger:"#surprise",
+  start:"top 72%",
+  once:true,
+  onEnter:()=> goSurprise()
+});
 if(sBtn) sBtn.addEventListener("click", goSurprise);
 document.getElementById("surprise-btn")?.addEventListener("click", goSurprise);
 

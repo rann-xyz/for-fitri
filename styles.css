@@ -566,3 +566,51 @@ body::before{
 @media(prefers-reduced-motion:reduce){
   .s-bow, .hero-sparkle, .snap .sticker, .tl-doodle, #gift-box, .final-bow{ animation:none !important }
 }
+
+/* SURPRISE ENHANCED — more WAH */
+.surprise-sub{ font-family:"Caveat",cursive; font-size:15px; color:rgba(245,236,239,.58); margin-top:6px }
+.reveal-extra{ margin-top:6px; font-family:"Caveat",cursive; font-size:15px; color:rgba(245,236,239,.62); font-style:italic }
+
+#surprise{
+  background:
+    radial-gradient(600px 320px at 50% 8%, rgba(248,166,190,.10), transparent 70%),
+    radial-gradient(520px 360px at 82% 72%, rgba(248,166,190,.05), transparent 70%),
+    var(--bg);
+}
+
+/* gift box extra sparkles when hovering */
+#gift-box::before, #gift-box::after{
+  content:"✦"; position:absolute; font-size:11px; color:var(--blush); opacity:0; pointer-events:none;
+  transition: opacity .2s, transform .2s;
+}
+#gift-box::before{ top:-8px; right:6px; transform:rotate(8deg) }
+#gift-box::after{ bottom:10px; left:-6px; font-size:9px; transform:rotate(-6deg) }
+#gift-box:hover::before, #gift-box:hover::after{ opacity:.85; transform:rotate(0) translateY(-2px) }
+
+/* reveal pops more */
+#surprise.revealed .reveal-line{ animation: popIn .5s ease both }
+#surprise.revealed .reveal-name{ animation: popIn .5s .12s ease both }
+#surprise.revealed .reveal-photo{ animation: popIn .5s .22s ease both }
+#surprise.revealed .reveal-cute{ animation: popIn .5s .32s ease both }
+#surprise.revealed .reveal-extra{ animation: popIn .5s .42s ease both }
+@keyframes popIn{ from{opacity:0; transform:translateY(10px) scale(.98)} to{opacity:1; transform:none} }
+
+/* choose buttons cuter */
+.choose-btn{
+  font-weight:500;
+  background: #fff;
+  color: var(--ink);
+  border-color: rgba(201,64,94,.14);
+  box-shadow: 0 4px 12px rgba(30,20,24,.06);
+}
+.choose-btn:hover{ background: var(--pink-pale); border-color: rgba(201,64,94,.22); transform:translateY(-1px) }
+#choose.show{ animation: popIn .4s ease both }
+
+/* love meter extra cute */
+.meter-card{ border-color: rgba(248,166,190,.16) }
+#meter-msg{ transition: color .25s }
+
+/* confetti more visible — handled in JS but ensure canvas above */
+#confetti-canvas{ z-index:2 }
+#surprise-canvas{ z-index:1 }
+

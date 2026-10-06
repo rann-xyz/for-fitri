@@ -133,11 +133,11 @@ document.querySelectorAll(".choose-btn").forEach(b=>{
     const k=b.dataset.choose;
     if(!chooseOut) return;
     if(k==="memory"){
-      chooseOut.innerHTML=`<div class="choose-card"><img src="https://i.ibb.co.com/Z6f80x6t/IMG-20261006-013840-882.jpg" alt=""><p>a memory i keep — soft light, you without trying. <em>my favorite hello ♡</em></p></div>`;
+      chooseOut.innerHTML=`<div class="choose-card"><img src="https://i.ibb.co.com/Z6f80x6t/IMG-20261006-013840-882.jpg" alt=""><p>soft light, you without even trying — you looked like a dream i didn't want to wake up from. <em>my favorite hello ♡</em></p></div>`;
     } else if(k==="reason"){
-      chooseOut.innerHTML=`<div class="choose-card"><p>because you make ordinary moments feel like my favorite scenes. <em>still you. ♡</em></p></div>`;
+      chooseOut.innerHTML=`<div class="choose-card"><p>because even doing nothing with you feels like my favorite adventure. you make boring feel like butterflies. <em>still you, cutie ♡</em></p></div>`;
     } else {
-      chooseOut.innerHTML=`<div class="choose-card"><p>my secret? i've been falling a little more every day — and i don't plan to stop. <em>— agis ♡</em></p></div>`;
+      chooseOut.innerHTML=`<div class="choose-card"><p>my secret? i fall for you a little more every single day — and i'm never ever stopping. you're stuck with me, pretty girl ♡ <em>— agis</em></p></div>`;
     }
     gsap.from("#choose-out .choose-card",{y:8,opacity:0,duration:.35});
   });
@@ -146,7 +146,7 @@ document.querySelectorAll(".choose-btn").forEach(b=>{
 // love meter easter egg
 const meter=$("#meter"), mval=$("#meter-val"), mmsg=$("#meter-msg");
 if(meter){
-  const msgs=["hmm... a little? ♡","okay, getting warmer","that's more like it","so much ♡","much much more","okay... that's still not enough ♡"];
+  const msgs=["just a little? you deserve the universe ♡","a bit more? i'm just warming up!","that's more like it, cutie ♡","sooo much — like stars in the sky ♡","999% and still counting! ♡","∞ — and even that's not enough for you, pretty girl ♡"];
   const vals=["10%","30%","50%","100%","999%","∞"];
   meter.addEventListener("input",()=>{
     const v=parseInt(meter.value,10);
